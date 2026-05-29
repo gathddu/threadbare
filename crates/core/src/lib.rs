@@ -6,6 +6,7 @@
 pub mod error;
 pub mod models;
 pub mod config;
+pub mod db;
 
 pub use error::{Error, Result};
 
