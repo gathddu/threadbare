@@ -19,4 +19,5 @@ sha2.workspace = true
 uuid.workspace = true
 chrono.workspace = true
 regex.workspace = true
+dirs.workspace = true
 

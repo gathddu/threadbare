@@ -1,14 +1,14 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! threadbare-core
+//! 
+//! core library for threadbare e-mail client.
+//! shared types, e-mail parsing, database models and business logic.
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub mod error;
+pub mod models;
+pub mod config;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use error::{Error, Result};
+
+/// library version
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
