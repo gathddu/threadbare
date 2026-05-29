@@ -25,8 +25,6 @@ sqlx = { version = "0.8", features = ["runtime-tokio-native-tls", "sqlite"] }
 sqlite = "0.30"
 
 # e-mail/IMAP
-imap = "3.0"
-lettre = { version = "0.11", features = ["smtp", "builder"] }
 mail-parser = "0.9"
 
 # async/concurrency
@@ -42,8 +40,8 @@ tonic = "0.12"
 prost = "0.13"
 
 # GUI (GTK4)
-gtk4 = { version = "0.9", features = ["v4_14"] }
-gtk4-macros = "0.9"
+gtk4 = { version = "0.8", features = ["v4_14"] }
+gtk4-macros = "0.8"
 libadwaita = { version = "0.6", features = ["v1_5"] }
 glib = "0.19"
 gio = { version = "0.19", features = ["v2_76"] }
