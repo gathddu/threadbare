@@ -1,14 +1,15 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+//! threadbare-daemon
+//! 
+//! daemon for threadbare e-mail client.
+//! handles IMAP sync, database management and IPC communication
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+pub mod server;
+pub mod sync;
+pub mod state;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub use server::DaemonServer;
+pub use state::DaemonState;
+
+/// version
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
