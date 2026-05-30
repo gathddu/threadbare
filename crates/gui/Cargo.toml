@@ -22,3 +22,6 @@ gio.workspace = true
 uuid.workspace = true
 chrono.workspace = true
 
+[[bin]]
+name = "threadbare-gui"
+path = "src/bin/threadbare-gui.rs"
