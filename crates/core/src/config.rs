@@ -88,7 +88,7 @@ impl Default for Config {
             daemon: DaemonConfig {
                 ipc_socket: config_dir.join("threadbare.sock"),
                 sync_interval: 300, // 5 minutes
-                database_path: data_dir.join("threadbare.db"),
+                database_path: data_dir.join("emails.db"),
                 max_connections: 10,
             },
             gui: GuiConfig {

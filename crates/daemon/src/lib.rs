@@ -9,6 +9,7 @@ pub mod state;
 
 pub use server::DaemonServer;
 pub use state::DaemonState;
+pub use sync::SyncManager;
 
 /// version
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

@@ -19,12 +19,15 @@ pub struct DaemonState {
 impl DaemonState {
     /// create a new daemon state
     pub async fn new(config: Config) -> Result<Self> {
+        // make sure the directories exist
+        std::fs::create_dir_all(&config.app.data_dir)?;
+        std::fs::create_dir_all(&config.app.config_dir)?;
+
         // create database connection pool
-        let db = SqlitePool::connect(&format!(
-            "sqlite://{}",
-            config.daemon.database_path.display()
-        ))
-        .await?;
+        let db_path = config.daemon.database_path.to_string_lossy();
+        let db_url = format!("sqlite:{}?mode=rwc", db_path);
+
+        let db = SqlitePool::connect(&db_url).await?;
 
         // initialize database schema
         threadbare_core::db::init(&db).await?;
