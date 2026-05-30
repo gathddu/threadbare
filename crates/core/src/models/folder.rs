@@ -70,3 +70,30 @@ impl Folder {
     }
 }
 
+impl FolderType {
+    /// convert to string representation
+    pub fn as_str(&self) -> &'static str {
+        match self {
+            FolderType::Inbox => "inbox",
+            FolderType::Sent => "sent",
+            FolderType:: Drafts => "drafts",
+            FolderType::Trash => "trash",
+            FolderType::Spam => "spam",
+            FolderType::Archive => "archive",
+            FolderType::Custom => "custom",
+        }
+    }
+
+    pub fn from_str(s: &str) -> Self {
+        match s {
+            "inbox" => FolderType::Inbox,
+            "sent" => FolderType::Sent,
+            "drafts" => FolderType::Drafts,
+            "trash" => FolderType::Spam,
+            "spam" => FolderType::Spam,
+            "archive" => FolderType::Archive,
+            _ => FolderType::Custom,
+        }
+    }
+}
+
