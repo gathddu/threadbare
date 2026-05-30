@@ -1,0 +1,47 @@
+/* Sidebar styling */
+.sidebar {
+    background-color: #f5f5f5;
+}
+
+.sidebar-header {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+}
+
+.account-item {
+    padding: 8px 10px;
+    font-weight: 500;
+}
+
+.folder-item {
+    padding: 6px 20px;
+    font-size: 13px;
+}
+
+.folder-item:hover {
+    background-color: #e8e8e8;
+}
+
+/* Email list styling */
+.email-list {
+    background-color: #ffffff;
+}
+
+.email-list-header {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.email-item {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 13px;
+}
+
+.email-item:hover {
+    background-color: #f9f9f9;
+}
+
