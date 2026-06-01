@@ -31,7 +31,7 @@ impl Application {
 
     /// handle application activation
     fn on_activate(app: &GtkApplication) {
-        use gtk4::{Box, Label, Orientation, Paned, CssProvider};
+        use gtk4::{Box, Label, Orientation, Paned, CssProvider, SearchEntry};
 
         // load CSS
         let css_provider = CssProvider::new();
@@ -139,6 +139,15 @@ impl Application {
         content_label.set_margin_top(10);
         content_label.set_margin_start(10);
         email_list.append(&content_label);
+
+        let search_entry = SearchEntry::new();
+        search_entry.set_placeholder_text(Some("Search e-mails.."));
+        search_entry.set_margin_start(10);
+        search_entry.set_margin_end(10);
+        search_entry.set_margin_top(5);
+        search_entry.set_margin_bottom(5);
+        email_list.append(&search_entry);
+
         
         let email1 = gtk4::Button::with_label("From: Shaka | Subject: Missing you | 2:30 PM");
         email1.add_css_class("email-item");
@@ -233,6 +242,30 @@ impl Application {
             body.set_margin_top(10);
             body.set_wrap(true);
             reading_pane_clone.append(&body);
+        });
+
+        // search filter function
+        let email1_clone = email1.clone();
+        let email2_clone = email2.clone();
+        let email3_clone = email3.clone();
+        
+        search_entry.connect_search_changed(move |entry| {
+            let query = entry.text().to_lowercase();
+            
+            // e-mail data for searching
+            let emails = vec![
+                ("From: Shaka | Subject: Missing you | 2:30 PM", &email1_clone),
+                ("From: God | Subject: Why are you eeven making this it's 2 AM | 2:15 AM", &email2_clone),
+                ("From: Mat | Subject: Re: we BALL | 12:45 PM", &email3_clone),
+            ];
+            
+            for (text, btn) in emails {
+                if query.is_empty() || text.to_lowercase().contains(&query) {
+                    btn.set_visible(true);
+                } else {
+                    btn.set_visible(false);
+                }
+            }
         });
 
         // click handlers for folder buttons
