@@ -53,6 +53,25 @@ impl Application {
         // create header bar
         let header_bar = libadwaita::HeaderBar::new();
 
+        // compose button
+        let compose_btn = gtk4::Button::with_label("Compose");
+        compose_btn.add_css_class("suggested-action");
+        header_bar.pack_start(&compose_btn);
+
+        // action buttons on the right
+        let delete_btn = gtk4::Button::with_label("Delete");
+        delete_btn.add_css_class("flat");
+        delete_btn.add_css_class("destructive-action");
+        header_bar.pack_end(&delete_btn);
+
+        let archive_btn = gtk4::Button::with_label("Archive");
+        archive_btn.add_css_class("flat");
+        header_bar.pack_end(&archive_btn);
+        
+        let reply_btn = gtk4::Button::with_label("Reply");
+        reply_btn.add_css_class("flat");
+        header_bar.pack_end(&reply_btn);
+
         // create main box (vertical)
         let main_box = Box::new(Orientation::Vertical, 0);
         main_box.set_hexpand(true);
