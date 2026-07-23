@@ -165,7 +165,9 @@ impl Application {
         email_list.append(&email3);
 
         content_paned.set_start_child(Some(&email_list));
-        content_paned.set_position(300);
+        content_paned.set_position(200);
+        content_paned.set_shrink_start_child(false);
+        content_paned.set_shrink_end_child(false);
 
         // create reading pane
         let reading_pane = Box::new(Orientation::Vertical, 0);
@@ -270,6 +272,7 @@ impl Application {
 
         // click handlers for folder buttons
         let email_list_clone = email_list.clone();
+        let reading_pane_clone = reading_pane.clone();
         inbox.connect_clicked(move |_| {
             while let Some(child) = email_list_clone.first_child() {
                 email_list_clone.remove(&child);
@@ -278,20 +281,63 @@ impl Application {
             header.add_css_class("email-list-header");
             email_list_clone.append(&header);
 
-            let e1 = Label::new(Some("From: Shaka | Subject: Missing you | 2:30 PM"));
+            let rp = reading_pane_clone.clone();
+            let e1 = gtk4::Button::with_label("From: Shaka | Subject: Missing you | 2:30 PM");
             e1.add_css_class("email-item");
+            e1.add_css_class("flat");
+            e1.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("From: Shaka"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: Missing you"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\nlarping larp rn"));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e1);
 
-            let e2 = Label::new(Some("From: God | Subject: Why are you even making this it's 2 AM | 2:15 AM"));
+            let rp = reading_pane_clone.clone();
+            let e2 = gtk4::Button::with_label("From: God | Subject: Why are you even making this it's 2 AM | 2:15 AM");
             e2.add_css_class("email-item");
+            e2.add_css_class("flat");
+            e2.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("From: God"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: Why are you even making this it's 2 AM"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\nGo to sleep. This can wait until tomorrow."));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e2);
 
-            let e3 = Label::new(Some("From: Mat | Subject: we BALL | 12:45 PM"));
+            let rp = reading_pane_clone.clone();
+            let e3 = gtk4::Button::with_label("From: Mat | Subject: we BALL | 12:45 PM");
             e3.add_css_class("email-item");
+            e3.add_css_class("flat");
+            e3.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("From: Mat"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: Re: we BALL"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\nWE BALL INDEED"));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e3);
         });
 
         let email_list_clone = email_list.clone();
+        let reading_pane_clone = reading_pane.clone();
         sent.connect_clicked(move |_| {
             while let Some(child) = email_list_clone.first_child() {
                 email_list_clone.remove(&child);
@@ -300,16 +346,45 @@ impl Application {
             header.add_css_class("email-list-header");
             email_list_clone.append(&header);
 
-            let e1 = Label::new(Some("To: Bella | Subject: yo check this out | 1:00 PM"));
+            let rp = reading_pane_clone.clone();
+            let e1 = gtk4::Button::with_label("To: Bella | Subject: yo check this out | 1:00 PM");
             e1.add_css_class("email-item");
+            e1.add_css_class("flat");
+            e1.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("To: Bella"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: yo check this out"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\ncheck this out fr fr"));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e1);
 
-            let e2 = Label::new(Some("To: Shaka | Subject: Re: Missing you | 3:00 PM"));
+            let rp = reading_pane_clone.clone();
+            let e2 = gtk4::Button::with_label("To: Shaka | Subject: Re: Missing you | 3:00 PM");
             e2.add_css_class("email-item");
+            e2.add_css_class("flat");
+            e2.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("To: Shaka"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: Re: Missing you"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\nmissing u too bro"));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e2);
         });
 
         let email_list_clone = email_list.clone();
+        let reading_pane_clone = reading_pane.clone();
         drafts.connect_clicked(move |_| {
             while let Some(child) = email_list_clone.first_child() {
                 email_list_clone.remove(&child);
@@ -318,8 +393,22 @@ impl Application {
             header.add_css_class("email-list-header");
             email_list_clone.append(&header);
 
-            let e1 = Label::new(Some("To: Mom | Subject: iupi | (unsent)"));
+            let rp = reading_pane_clone.clone();
+            let e1 = gtk4::Button::with_label("To: Mom | Subject: iupi | (unsent)");
             e1.add_css_class("email-item");
+            e1.add_css_class("flat");
+            e1.connect_clicked(move |_| {
+                while let Some(child) = rp.first_child() { rp.remove(&child); }
+                let from = Label::new(Some("To: Mom"));
+                from.set_margin_top(10); from.set_margin_start(10);
+                rp.append(&from);
+                let subject = Label::new(Some("Subject: iupi"));
+                subject.set_margin_start(10); subject.set_margin_top(5);
+                rp.append(&subject);
+                let body = Label::new(Some("\n[draft content]"));
+                body.set_margin_start(10); body.set_margin_top(10); body.set_wrap(true);
+                rp.append(&body);
+            });
             email_list_clone.append(&e1);
         });
 
