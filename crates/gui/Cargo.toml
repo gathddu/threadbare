@@ -21,6 +21,7 @@ glib.workspace = true
 gio.workspace = true
 uuid.workspace = true
 chrono.workspace = true
+threadbare-core = { path = "../core" }
 
 [[bin]]
 name = "threadbare-gui"

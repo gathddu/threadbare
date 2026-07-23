@@ -32,6 +32,8 @@ impl Application {
     /// handle application activation
     fn on_activate(app: &GtkApplication) {
         use gtk4::{Box, Label, Orientation, Paned, CssProvider, SearchEntry, TextView, Entry, ScrolledWindow};
+        let config = threadbare_core::config::Config::load()
+            .unwrap_or_else(|_| threadbare_core::config::Config::default());
 
         // load CSS
         let css_provider = CssProvider::new();
@@ -46,8 +48,8 @@ impl Application {
         let window = libadwaita::ApplicationWindow::builder()
             .application(app)
             .title("Threadbare E-mail")
-            .default_width(1200)
-            .default_height(800)
+            .default_width(config.gui.window_width)
+            .default_height(config.gui.window_height)
             .build();
 
         // create header bar

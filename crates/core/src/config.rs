@@ -101,3 +101,46 @@ impl Default for Config {
     }
 }
 
+impl Config {
+    /// load config from file or create default if it doesn't exist
+    pub fn load() -> anyhow::Result<Self> {
+        let config_path = dirs::config_dir()
+            .unwrap_or_else(|| PathBuf::from("~/.config"))
+            .join("threadbare")
+            .join("config.toml");
+
+        if config_path.exists() {
+            let content = std::fs::read_to_string(&config_path)?;
+            let config: Config = toml::from_str(&content)?;
+            Ok(config)
+        } else {
+            let config = Config::default();
+            config.save()?;
+            Ok(config)
+        }
+    }
+
+    /// save config to file
+    pub fn save(&self) -> anyhow::Result<()> {
+        let config_path = dirs::config_dir()
+            .unwrap_or_else(|| PathBuf::from("~/.config"))
+            .join("threadbare")
+            .join("config.toml");
+
+        // create directory if it doesn't exist
+        if let Some(parent) = config_path.parent() {
+            std::fs::create_dir_all(parent)?;
+        }
+
+        let content = toml::to_string_pretty(self)?;
+        std::fs::write(&config_path, content)?;
+        Ok(())
+    }
+
+    /// load config from a specific path
+    pub fn load_from(path: &std::path::Path) -> anyhow::Result<Self> {
+        let content = std::fs::read_to_string(path)?;
+        let config: Config = toml::from_str(&content)?;
+        Ok(config)
+    }
+}
