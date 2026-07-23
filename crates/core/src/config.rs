@@ -14,6 +14,9 @@ pub struct Config {
     
     /// GUI settings
     pub gui: GuiConfig,
+
+    /// account settings
+    pub accounts: Vec<AccountConfig>,
 }
 
 /// application-level configuration
@@ -67,6 +70,34 @@ pub struct GuiConfig {
     pub font_size: i32,
 }
 
+/// e-mail account configuration
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AccountConfig {
+    /// display name
+    pub name: String,
+
+    /// e-mail address
+    pub email: String,
+
+    /// IMAP server hostname
+    pub imap_host: String,
+
+    /// IMAP port
+    pub imap_port: u16,
+
+    /// SMTP server hostname
+    pub smtp_host: String,
+
+    /// SMTP port
+    pub smtp_port: u16,
+
+    /// username (same as e-mail?)
+    pub username: String,
+
+    /// use TLS
+    pub use_tls: bool,
+}
+
 impl Default for Config {
     fn default() -> Self {
         let data_dir = dirs::data_dir()
@@ -97,6 +128,7 @@ impl Default for Config {
                 theme: "auto".to_string(),
                 font_size: 12,
             },
+            accounts: vec![],
         }
     }
 }
