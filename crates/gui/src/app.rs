@@ -31,7 +31,7 @@ impl Application {
 
     /// handle application activation
     fn on_activate(app: &GtkApplication) {
-        use gtk4::{Box, Label, Orientation, Paned, CssProvider, SearchEntry};
+        use gtk4::{Box, Label, Orientation, Paned, CssProvider, SearchEntry, TextView, Entry, ScrolledWindow};
 
         // load CSS
         let css_provider = CssProvider::new();
@@ -410,6 +410,70 @@ impl Application {
                 rp.append(&body);
             });
             email_list_clone.append(&e1);
+        });
+
+        // compose button handler
+        let window_clone = window.clone();
+        compose_btn.connect_clicked(move |_| {
+            let compose_window = gtk4::Window::builder()
+                .title("Compose E-mail")
+                .default_width(600)
+                .default_height(500)
+                .transient_for(&window_clone)
+                .modal(true)
+                .build();
+
+            let compose_box = Box::new(Orientation::Vertical, 8);
+            compose_box.set_margin_top(10);
+            compose_box.set_margin_bottom(10);
+            compose_box.set_margin_start(10);
+            compose_box.set_margin_end(10);
+
+            // to field
+            let to_box = Box::new(Orientation::Horizontal, 5);
+            let to_label = Label::new(Some("To:"));
+            to_label.set_width_chars(8);
+            let to_entry = Entry::new();
+            to_entry.set_hexpand(true);
+            to_entry.set_placeholder_text(Some("recipient@example.com"));
+            to_box.append(&to_label);
+            to_box.append(&to_entry);
+            compose_box.append(&to_box);
+
+            // subject field
+            let subject_box = Box::new(Orientation::Horizontal, 5);
+            let subject_label = Label::new(Some("Subject:"));
+            subject_label.set_width_chars(8);
+            let subject_entry = Entry::new();
+            subject_entry.set_hexpand(true);
+            subject_entry.set_placeholder_text(Some("Subject"));
+            subject_box.append(&subject_label);
+            subject_box.append(&subject_entry);
+            compose_box.append(&subject_box);
+
+            // body
+            let body_scroll = ScrolledWindow::new();
+            body_scroll.set_vexpand(true);
+            body_scroll.set_hexpand(true);
+            let body_text = TextView::new();
+            body_text.set_wrap_mode(gtk4::WrapMode::Word);
+            body_text.set_top_margin(5);
+            body_text.set_left_margin(5);
+            body_scroll.set_child(Some(&body_text));
+            compose_box.append(&body_scroll);
+
+            // send button
+            let send_btn = gtk4::Button::with_label("Send");
+            send_btn.add_css_class("suggested-action");
+            let cw = compose_window.clone();
+            send_btn.connect_clicked(move |_| {
+                // TODO: actually send the e-mail via daemon
+                cw.close();
+            });
+            compose_box.append(&send_btn);
+
+            compose_window.set_child(Some(&compose_box));
+            compose_window.present();
         });
 
         // add paned to main box
