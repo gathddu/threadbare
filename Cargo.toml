@@ -26,6 +26,11 @@ sqlite = "0.30"
 
 # e-mail/IMAP
 mail-parser = "0.9"
+async-imap = "0.11"
+tokio-native-tls = "0.3"
+native-tls = "0.2"
+lettre = { version = "0.11", features = ["tokio1-native-tls", "builder"] }
+tokio-util = { version = "0.7", features = ["compat"] }
 
 # async/concurrency
 futures = "0.3"

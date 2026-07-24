@@ -94,6 +94,9 @@ pub struct AccountConfig {
     /// username (same as e-mail?)
     pub username: String,
 
+    /// password (encrypted later)
+    pub password: String,
+
     /// use TLS
     pub use_tls: bool,
 }

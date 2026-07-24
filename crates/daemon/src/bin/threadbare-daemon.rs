@@ -14,7 +14,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .init();
 
     // load or create config
-    let config = Config::default();
+    let config = Config::load().unwrap_or_else(|_| Config::default());
     
     tracing::info!("Starting threadbare daemon v{}", threadbare_daemon::VERSION);
     tracing::info!("Config dir: {}", config.app.config_dir.display());

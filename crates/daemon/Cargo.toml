@@ -27,4 +27,8 @@ uuid.workspace = true
 chrono.workspace = true
 regex.workspace = true
 lazy_static.workspace = true
-
+async-imap.workspace = true
+tokio-native-tls.workspace = true
+native-tls.workspace = true
+lettre.workspace = true
+tokio-util = { workspace = true }
